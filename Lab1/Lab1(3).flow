@@ -1,0 +1,74 @@
+import ds/array;
+import runtime;
+import string;
+import ds/tree.flow
+
+fibRec(n: int) -> int {
+	if (n <= 1) {
+		0;
+	}
+	else if (n == 2) {
+		1;
+	}
+	else {
+		fibRec(n - 1) + fibRec(n - 2);
+	}
+}
+
+fibTail(n: int) -> int {
+	if (n > 1) {
+		fibTailIteration(0, 1, n - 2);
+	}
+	else {
+		0;
+	}
+}
+ 
+fibTailIteration(pr: int, cur: int, n: int) {
+	if (n == 0) {
+		cur;
+	}
+	else {
+		fibTailIteration(cur, pr + cur, n - 1);
+	}
+}
+ 
+fibA(n: int) -> [int] {
+	if (n == 0) {
+		[];
+	}
+	else {
+		concat(fibA(n - 1), [fibRec(n)]);
+	}
+}
+ 
+fibB(n: int) -> [int] {
+	if (n == 0) {
+		[];
+	}
+	else {
+		concat(fibB(n - 1), [fibTail(n)]);
+	}
+}
+ 
+fibC(n: int) -> [int] {
+	if(n < 2) {
+		[0];
+	}
+	else if(n == 2) {
+		[0, 1];
+	}
+	else {
+		arr = ref [0, 1];
+		fori(2, n - 1, \i -> refArrayPush(arr, ^arr[i - 1] + ^arr[i - 2]));
+		^arr;
+	}
+}
+ 
+ main () {
+	c = fibA(8);
+	d = fibB(8);
+	println("a - " + strGlue(ia2sa(c), " ") + "\n");
+	println("b - " + strGlue(ia2sa(d), " ") + "\n");
+	println("c - " + strGlue(ia2sa(fibC(8)), " ") + "\n");
+}
