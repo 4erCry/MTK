@@ -1,10 +1,10 @@
 import string;
 
+mysum(n : [int]) -> int {
+    fold(n,0,\x,y->x+y);
+}
+
 main()-> void {
     m =[1,2,3];
     println(mysum(m));
-}
-
-mysum(n : [int]) -> int {
-    fold(n,0,\x,y->x+y);
 }
