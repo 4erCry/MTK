@@ -1,0 +1,28 @@
+import string;
+import ds/tree;
+
+m2t (mas : [int]) -> Tree<int, int>{
+    new_tree = makeTree();
+    f = \i,t,e->setTree(t,e,i);
+    foldi(mas, new_tree, f);
+}
+
+pint (t : Tree<int, int>, k : int, i : int, c : int) -> [Pair<int, int>] {
+    p = lookupTree(t, (c - k));
+    switch (p) {
+        None(): [];
+        Some(v): [Pair(i,v)];
+    }
+}
+
+inds(a : [int], m : int) -> [Pair<int, int>] {
+    my_tree = m2t(a);
+    g = \i, k -> pint(my_tree, k, i, m);
+    concatA(mapi(a, g));
+}
+
+main() {
+    mas = [5,0,-5,10,0,0,-4,9,0,301,-295,200,-195];
+    sum = 5;
+    println(inds(mas,sum));    
+}
